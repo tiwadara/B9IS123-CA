@@ -17,10 +17,10 @@ class TestEmployee(TestCase):
         self.assertEqual(None, new_employee.standard_band)
 
     def test_when_a_new_employee_is_initialized_then_the_exact_values_are_returned(self):
-        new_employee = Employee(12345, 'Green', 'Joe', 37, 16, 1.5, 72, 710)
+        new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710.0)
         self.assertEqual(12345, new_employee.staff_id)
-        self.assertEqual('Green', new_employee.first_name)
-        self.assertEqual('Joe', new_employee.last_name)
+        self.assertEqual('Joe', new_employee.first_name)
+        self.assertEqual('Green', new_employee.last_name)
         self.assertEqual(37, new_employee.reg_hours)
         self.assertEqual(16, new_employee.hourly_rate)
         self.assertEqual(1.5, new_employee.otm_multiple)
@@ -28,8 +28,8 @@ class TestEmployee(TestCase):
         self.assertEqual(710, new_employee.standard_band)
 
     def test_when_compute_payment_is_called_the_payment_dictionary_is_returned(self):
-        new_employee = Employee(12345, 'Green', 'Joe', 37, 16, 1.5, 72, 710)
-        hours_worked = 10
+        new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
+        hours_worked = 42
         date = '31/10/2021'
         response = {
             "name": "Joe Green",
