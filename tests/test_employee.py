@@ -59,4 +59,4 @@ class TestEmployee(TestCase):
         hours_worked = 42
         date = '31/10/2021'
         payment = new_employee.compute_payment(hours_worked, date)
-        self.assertLessEqual(new_employee.get_net_pay(), payment['Gross Payd'])
+        self.assertLessEqual(new_employee.get_net_pay(), payment['Gross Pay'])
