@@ -17,7 +17,7 @@ class TestEmployee(TestCase):
         self.assertEqual(None, new_employee.standard_band)
 
     def test_when_a_new_employee_is_initialized_then_the_exact_values_are_returned(self):
-        new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710.0)
+        new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
         self.assertEqual(12345, new_employee.staff_id)
         self.assertEqual('Joe', new_employee.first_name)
         self.assertEqual('Green', new_employee.last_name)
