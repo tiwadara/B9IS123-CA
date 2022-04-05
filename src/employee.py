@@ -42,6 +42,9 @@ class Employee:
 
         return response
 
+    def get_net_pay(self):
+        return self.__get_gross_pay() - self.__get_net_deductions()
+
     def __get_overtime_hours(self):
         return max(0, self.__hours_worked - self.reg_hours)
 
@@ -52,10 +55,10 @@ class Employee:
         return self.reg_hours * self.hourly_rate
 
     def __get_overtime_pay(self):
-        return self.__get_overtime_hours() * (self.__get_overtime_rate()).__int__()
+        return self.__get_overtime_hours() * self.__get_overtime_rate()
 
     def __get_overtime_rate(self):
-        return (self.hourly_rate * self.otm_multiple).__int__()
+        return self.hourly_rate * self.otm_multiple
 
     def __get_prsi(self):
         return self.__get_gross_pay() * self.__prsi
@@ -67,7 +70,7 @@ class Employee:
             return self.__get_regular_pay() + self.__get_overtime_pay()
 
     def __get_standard_tax(self):
-        return (self.standard_band * self.__standard_rate).__int__()
+        return self.standard_band * self.__standard_rate
 
     def __get_higher_tax(self):
         return self.__get_higher_rate_pay() * self.__higher_rate

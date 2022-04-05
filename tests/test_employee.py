@@ -53,3 +53,10 @@ class TestEmployee(TestCase):
         }
         payment = new_employee.compute_payment(hours_worked, date)
         self.assertEqual(response, payment)
+
+    def testNetLessEqualGross(self):
+        new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
+        hours_worked = 42
+        date = '31/10/2021'
+        payment = new_employee.compute_payment(hours_worked, date)
+        self.assertLessEqual(new_employee.get_net_pay(), payment['Gross Payd'])
