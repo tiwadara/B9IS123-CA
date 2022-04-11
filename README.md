@@ -1,6 +1,6 @@
 # B9IS123-CA
 
-![Build Status](https://github.com/tiwadara/B9IS123-CA/actions/workflows/python-app.yml/badge.svg)
+![example workflow](https://github.com/tiwadara/B9IS123-CA/actions/workflows/python-app.yml/badge.svg?event=push)
 
 Create a class Employee, and create and test a function to compute net pay from payment, work and tax credit information.
 
