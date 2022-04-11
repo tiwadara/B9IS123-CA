@@ -24,7 +24,7 @@ class Employee:
             "name": self.__get_employee_name(),
             "Date": date,
             "Regular Hours Worked": self.reg_hours,
-            "Overtime Hours Worked": self.__get_overtime_hours(),
+            "Overtime Hours Worked": self.get_overtime_hours(),
             "Regular Pay": self.__get_regular_pay(),
             "Regular Rate": self.hourly_rate,
             "Overtime Pay": self.get_overtime_pay(),
@@ -48,7 +48,7 @@ class Employee:
         return max(0, self.__get_gross_pay() - self.__get_net_deductions())
 
     # Calculates the overtime hours
-    def __get_overtime_hours(self):
+    def get_overtime_hours(self):
         return max(0, self.__hours_worked - self.reg_hours)
 
     # Calculates the employee name
@@ -61,7 +61,7 @@ class Employee:
 
     # Calculates the overtime pay
     def get_overtime_pay(self):
-        return self.__get_overtime_hours() * self.__get_overtime_rate()
+        return self.get_overtime_hours() * self.__get_overtime_rate()
 
     # calcu;ates the overtime rate
     def __get_overtime_rate(self):

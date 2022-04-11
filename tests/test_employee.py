@@ -63,11 +63,13 @@ class TestEmployee(TestCase):
 
     def testOvertimePayOrOvertimeHoursCannotBeNegative(self):
         new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
-        hours_worked = 10
+        hours_worked = -10
         date = '31/10/2021'
         new_employee.compute_payment(hours_worked, date)
-        over_time = new_employee.get_overtime_pay()
-        self.assertGreaterEqual(over_time, 0)
+        over_time_pay = new_employee.get_overtime_pay()
+        over_time_hours = new_employee.get_overtime_hours()
+        self.assertGreaterEqual(over_time_pay, 0)
+        self.assertGreaterEqual(over_time_hours, 0)
 
     def testHigherTaxCannotBeNegative(self):
         new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
