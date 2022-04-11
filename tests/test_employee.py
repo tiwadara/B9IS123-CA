@@ -54,9 +54,33 @@ class TestEmployee(TestCase):
         payment = new_employee.compute_payment(hours_worked, date)
         self.assertEqual(response, payment)
 
-    def testNetLessEqualGross(self):
+    def testNetPayLessEqualGross(self):
         new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
         hours_worked = 42
         date = '31/10/2021'
         payment = new_employee.compute_payment(hours_worked, date)
         self.assertLessEqual(new_employee.get_net_pay(), payment['Gross Pay'])
+
+    def testOvertimePayOrOvertimeHoursCannotBeNegative(self):
+        new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
+        hours_worked = 10
+        date = '31/10/2021'
+        new_employee.compute_payment(hours_worked, date)
+        over_time = new_employee.get_overtime_pay()
+        self.assertGreaterEqual(over_time, 0)
+
+    def testHigherTaxCannotBeNegative(self):
+        new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
+        hours_worked = 10
+        date = '31/10/2021'
+        new_employee.compute_payment(hours_worked, date)
+        higher_rate_pay = new_employee.get_higher_rate_pay()
+        self.assertGreaterEqual(higher_rate_pay, 0)
+
+    def testNetPayCannotBeNegative(self):
+        new_employee = Employee(12345, 'Joe', 'Green', 37, 16, 1.5, 72, 710)
+        hours_worked = -100
+        date = '31/10/2021'
+        new_employee.compute_payment(hours_worked, date)
+        net_pay = new_employee.get_net_pay()
+        self.assertGreaterEqual(net_pay, 0)

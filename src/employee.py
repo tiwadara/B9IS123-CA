@@ -17,6 +17,7 @@ class Employee:
         self.tax_credit = tax_credit
         self.standard_band = standard_band
 
+    # THis function must be called before other class functions can be used
     def compute_payment(self, hours_worked, date):
         self.__hours_worked = hours_worked
         response = {
@@ -26,11 +27,11 @@ class Employee:
             "Overtime Hours Worked": self.__get_overtime_hours(),
             "Regular Pay": self.__get_regular_pay(),
             "Regular Rate": self.hourly_rate,
-            "Overtime Pay": self.__get_overtime_pay(),
+            "Overtime Pay": self.get_overtime_pay(),
             "Overtime Rate": self.__get_overtime_rate(),
             "Gross Pay": self.__get_gross_pay(),
             "Standard Rate Pay": self.standard_band,
-            "Higher Rate Pay": self.__get_higher_rate_pay(),
+            "Higher Rate Pay": self.get_higher_rate_pay(),
             "Standard Tax": self.__get_standard_tax(),
             "Higher Tax": self.__get_higher_tax(),
             "Total Tax": self.__get_total_tax(),
@@ -42,47 +43,64 @@ class Employee:
 
         return response
 
+    # Calculates the net pay
     def get_net_pay(self):
-        return self.__get_gross_pay() - self.__get_net_deductions()
+        return max(0, self.__get_gross_pay() - self.__get_net_deductions())
 
+    # Calculates the overtime hours
     def __get_overtime_hours(self):
         return max(0, self.__hours_worked - self.reg_hours)
 
+    # Calculates the employee name
     def __get_employee_name(self):
         return self.first_name + ' ' + self.last_name
 
+    # Calculates the regular pay
     def __get_regular_pay(self):
         return self.reg_hours * self.hourly_rate
 
-    def __get_overtime_pay(self):
+    # Calculates the overtime pay
+    def get_overtime_pay(self):
         return self.__get_overtime_hours() * self.__get_overtime_rate()
 
+    # calcu;ates the overtime rate
     def __get_overtime_rate(self):
         return self.hourly_rate * self.otm_multiple
 
+    """
+    Calculates the PRSI
+    :return: the PRSI
+    """
+
     def __get_prsi(self):
+
         return self.__get_gross_pay() * self.__prsi
+
+    """
+      Calculates the Grosspay
+      :return: the grosspay
+      """
 
     def __get_gross_pay(self):
         if self.__hours_worked <= self.reg_hours:
             return self.__get_regular_pay()
         elif self.__hours_worked > self.reg_hours:
-            return self.__get_regular_pay() + self.__get_overtime_pay()
+            return self.__get_regular_pay() + self.get_overtime_pay()
 
     def __get_standard_tax(self):
         return self.standard_band * self.__standard_rate
 
     def __get_higher_tax(self):
-        return self.__get_higher_rate_pay() * self.__higher_rate
+        return self.get_higher_rate_pay() * self.__higher_rate
 
     def __get_standard_rate_pay(self):
         return self.reg_hours * self.hourly_rate * self.__standard_rate
 
-    def __get_higher_rate_pay(self):
-        return self.__get_gross_pay() - self.standard_band
+    def get_higher_rate_pay(self):
+        return max(0, self.__get_gross_pay() - self.standard_band)
 
     def __get_higher_rate(self):
-        return self.__get_higher_rate_pay() * self.__higher_rate
+        return self.get_higher_rate_pay() * self.__higher_rate
 
     def __get_net_deductions(self):
         return self.__get_net_tax() + self.__get_prsi()
